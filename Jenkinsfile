@@ -3,21 +3,27 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn clean'
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+           sh 'mvn clean'
+        }
         influxDbPublisher(selectedTarget: 'david_influxdb')
       }
     }
 
     stage('Test') {
       steps {
-        sh 'mvn test'
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+           sh 'mvn test'
+        }
         influxDbPublisher(selectedTarget: 'david_influxdb')
       }
     }
 
     stage('Deploy') {
       steps {
-        sh 'mvn package'
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+           sh 'mvn package'
+        }
         influxDbPublisher(selectedTarget: 'david_influxdb')
       }
     }
