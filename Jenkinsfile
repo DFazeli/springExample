@@ -1,8 +1,5 @@
 pipeline {
   agent any
-  def myFields = [:]
-      myFields['tribe'] = CoreIT
-      myFields['squad'] = SQUAD
   stages {
     stage('Build') {
       steps {
