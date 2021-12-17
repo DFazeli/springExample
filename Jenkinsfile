@@ -29,17 +29,10 @@ pipeline {
            sh 'mvn package'
         }
      
-        
-      }
-    }
-   post {
-      always{
-        //environment {
-            build_result= 'SUCCESS'
-         //}
-        
         influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '', jenkinsEnvParameterTag: '', selectedTarget: 'satdb'
       }
     }
+  
+    
   }
 }
