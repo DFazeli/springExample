@@ -11,7 +11,7 @@ pipeline {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
            sh 'mvn clean'
         }
-        influxDbPublisher(selectedTarget: 'satdb')
+        //influxDbPublisher(selectedTarget: 'satdb')
          }
     }
 
@@ -20,7 +20,7 @@ pipeline {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
            sh 'mvn test'
         }
-        influxDbPublisher(selectedTarget: 'satdb')
+        //influxDbPublisher(selectedTarget: 'satdb')
       }
     }
 
