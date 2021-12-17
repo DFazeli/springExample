@@ -1,10 +1,6 @@
 pipeline {
   agent any
-  
-  environment {
-    buildResult= 'SUCCESS'
-  }
-    
+     
   stages {
     stage('Build') {
       steps {
@@ -29,11 +25,9 @@ pipeline {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
            sh 'mvn package'
         }
-        //influxDbPublisher(selectedTarget: 'satdb')
-        //influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '''f1=core f2=zeus f3=zeuss''', jenkinsEnvParameterTag: '', selectedTarget: 'satdb'
-        influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '''f1=core
-f2=zeus
-f3=zeuss''', jenkinsEnvParameterTag: '', selectedTarget: 'satdb'
+        
+        
+        influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '', jenkinsEnvParameterTag: '', selectedTarget: 'satdb'
       }
     }
    
