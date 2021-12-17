@@ -1,25 +1,40 @@
 pipeline {
   agent any
   stages {
-    stage('ls -l') {
+    stage('Build') {
       steps {
-            sh 'ls -l'
-          }
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+           sh 'mvn clean'
+        }
+        //influxDbPublisher(selectedTarget: 'satdb')
+         }
     }
 
-    stage('ld') {
+    stage('Test') {
       steps {
-        sh 'ld'
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+           sh 'mvn test'
+        }
+        //influxDbPublisher(selectedTarget: 'satdb')
       }
     }
+
+    stage('Deploy') {
+      steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+           sh 'mvn package'
+        }
+         }
+    }
+  
   }
    post {
         always {
-            influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '''f1=ali
-            f2=arezo
-            f3=david
-
+            influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '''
+            tribe=tribe_name
+            squad=squad_name
+            application_name=app_name
+            product_name=product_name
 ''', jenkinsEnvParameterTag: '', selectedTarget: 'satdb' 
            }
      }
-}
