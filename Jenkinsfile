@@ -1,27 +1,16 @@
 pipeline {
   agent any
-  
+  environment {
+    currentBuild.result = 'SUCCESS'
+  }
   stages {
     stage('Build') {
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
            sh 'mvn clean'
         }
-        try {
-            // Build things here
-        if (currentBuild.result == null) {
-            currentBuild.result = 'SUCCESS' // sets the ordinal as 0 and boolean to true
+        influxDbPublisher(selectedTarget: 'satdb')
          }
-        } catch (err) {
-           if (currentBuild.result == null) {
-            currentBuild.result = 'FAILURE' // sets the ordinal as 4 and boolean to false
-          }
-        throw err
-        } finally {
-           influxDbPublisher(selectedTarget: 'david_influxdb')
-        }
-        
-      }
     }
 
     stage('Test') {
@@ -29,7 +18,7 @@ pipeline {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
            sh 'mvn test'
         }
-        influxDbPublisher(selectedTarget: 'david_influxdb')
+        influxDbPublisher(selectedTarget: 'satdb')
       }
     }
 
@@ -38,7 +27,7 @@ pipeline {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
            sh 'mvn package'
         }
-        influxDbPublisher(selectedTarget: 'david_influxdb')
+        influxDbPublisher(selectedTarget: 'satdb')
       }
     }
    
