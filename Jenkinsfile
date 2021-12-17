@@ -2,9 +2,7 @@ pipeline {
   agent any
      
   
-environment {
-   build_result= 'SUCCESS'
-}
+
   
   stages {
     stage('Build') {
@@ -30,7 +28,9 @@ environment {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
            sh 'mvn package'
         }
-        
+        environment {
+            build_result= 'SUCCESS'
+         }
         
         influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '', jenkinsEnvParameterTag: '', selectedTarget: 'satdb'
       }
