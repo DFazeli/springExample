@@ -27,6 +27,6 @@ pipeline {
         
       }
     }
-   influxDbPublisher(selectedTarget: 'david_influxdb', customData: myFields)
+   influxDbPublisher(selectedTarget: 'david_influxdb')
   }
 }
