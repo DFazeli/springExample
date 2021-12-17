@@ -1,13 +1,26 @@
 pipeline {
   agent any
-  def influxdb = Jenkins.instance.getDescriptorByType(jenkinsci.plugins.influxdb.InfluxDbStep.DescriptorImpl)
+  
   stages {
     stage('Build') {
       steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
            sh 'mvn clean'
         }
-        influxDbPublisher(selectedTarget: 'david_influxdb')
+        try {
+            // Build things here
+        if (currentBuild.result == null) {
+            currentBuild.result = 'SUCCESS' // sets the ordinal as 0 and boolean to true
+         }
+        } catch (err) {
+           if (currentBuild.result == null) {
+            currentBuild.result = 'FAILURE' // sets the ordinal as 4 and boolean to false
+          }
+        throw err
+        } finally {
+           influxDbPublisher(selectedTarget: 'david_influxdb')
+        }
+        
       }
     }
 
