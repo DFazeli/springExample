@@ -1,32 +1,17 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('ls -l') {
       steps {
-        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-           sh 'mvn clean'
-        }
-        //influxDbPublisher(selectedTarget: 'satdb')
-         }
+            sh 'ls -l'
+          }
     }
 
-    stage('Test') {
+    stage('ld') {
       steps {
-        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-           sh 'mvn test'
-        }
-        //influxDbPublisher(selectedTarget: 'satdb')
+        sh 'ld'
       }
     }
-
-    stage('Deploy') {
-      steps {
-        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-           sh 'mvn package'
-        }
-         }
-    }
-  
   }
    post {
         always {
