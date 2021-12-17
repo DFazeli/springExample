@@ -28,13 +28,16 @@ pipeline {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
            sh 'mvn package'
         }
-        environment {
-            build_result= 'SUCCESS'
-         }
+     
         
-        influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '', jenkinsEnvParameterTag: '', selectedTarget: 'satdb'
       }
     }
-   
+   post {
+        //environment {
+            build_result= 'SUCCESS'
+         //}
+        
+        influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '', jenkinsEnvParameterTag: '', selectedTarget: 'satdb'
+    }
   }
 }
