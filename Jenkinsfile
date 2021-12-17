@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    currentBuild.result = 'SUCCESS'
+    currentBuild-result = 'SUCCESS'
   }
   stages {
     stage('Build') {
