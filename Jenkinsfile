@@ -38,3 +38,4 @@ pipeline {
 ''', jenkinsEnvParameterTag: '', selectedTarget: 'satdb' 
            }
      }
+}
