@@ -1,6 +1,11 @@
 pipeline {
   agent any
      
+  
+environment {
+   build_result= 'SUCCESS'
+}
+  
   stages {
     stage('Build') {
       steps {
