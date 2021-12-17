@@ -29,9 +29,7 @@ pipeline {
       }
     }
    post {
-      environment {
-            build_result= 'SUCCESS'
-         }
+      
         always {
             
             influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '', jenkinsEnvParameterTag: '', selectedTarget: 'satdb' 
