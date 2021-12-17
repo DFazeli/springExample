@@ -1,9 +1,5 @@
 pipeline {
   agent any
-     
-  
-
-  
   stages {
     stage('Build') {
       steps {
@@ -29,10 +25,17 @@ pipeline {
            sh 'mvn package'
         }
         
-        influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '', jenkinsEnvParameterTag: '', selectedTarget: 'satdb'
+        
       }
     }
-  
-    
+   post {
+      environment {
+            build_result= 'SUCCESS'
+         }
+        always {
+            
+            influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '', jenkinsEnvParameterTag: '', selectedTarget: 'satdb' 
+           }
+     }
   }
 }
