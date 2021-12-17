@@ -30,7 +30,10 @@ pipeline {
            sh 'mvn package'
         }
         //influxDbPublisher(selectedTarget: 'satdb')
-        influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '''f1=core f2=zeus f3=zeuss''', jenkinsEnvParameterTag: '', selectedTarget: 'satdb'
+        //influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '''f1=core f2=zeus f3=zeuss''', jenkinsEnvParameterTag: '', selectedTarget: 'satdb'
+        influxDbPublisher customPrefix: '', customProjectName: '', jenkinsEnvParameterField: '''f1=core
+f2=zeus
+f3=zeuss''', jenkinsEnvParameterTag: '', selectedTarget: 'satdb'
       }
     }
    
