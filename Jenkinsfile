@@ -6,7 +6,7 @@ pipeline {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
            sh 'mvn clean'
         }
-        influxDbPublisher(selectedTarget: 'david_influxdb')
+        
       }
     }
 
@@ -24,7 +24,7 @@ pipeline {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
            sh 'mvn package'
         }
-        
+        influxDbPublisher(selectedTarget: 'david_influxdb')
       }
     }
    
