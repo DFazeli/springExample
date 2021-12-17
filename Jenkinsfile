@@ -1,5 +1,6 @@
 pipeline {
   agent any
+  def influxdb = Jenkins.instance.getDescriptorByType(jenkinsci.plugins.influxdb.InfluxDbStep.DescriptorImpl)
   stages {
     stage('Build') {
       steps {
